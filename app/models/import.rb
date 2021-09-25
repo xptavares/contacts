@@ -6,4 +6,6 @@ class Import < ApplicationRecord
   has_one_attached :file
 
   validates :file, attached: true, content_type: ["text/csv", "application/csv", "text/comma-separated-values"]
+
+  accepts_nested_attributes_for :import_columns, allow_destroy: true
 end

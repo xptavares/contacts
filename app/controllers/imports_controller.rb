@@ -13,6 +13,9 @@ class ImportsController < ApplicationController
   # GET /imports/new
   def new
     @import = Import.new
+    Column.all.each_with_index do |column, index|
+      @import.import_columns.build(column: column, order: index + 1)
+    end
   end
 
   # GET /imports/1/edit
@@ -64,6 +67,6 @@ class ImportsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def import_params
-      params.require(:import).permit(:file)
+      params.require(:import).permit(:file, import_columns_attributes: [ :id, :column_id, :order, :_destroy ])
     end
 end
