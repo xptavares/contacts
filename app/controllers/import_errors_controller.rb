@@ -3,7 +3,8 @@ class ImportErrorsController < ApplicationController
 
   # GET /import_errors or /import_errors.json
   def index
-    @import_errors = ImportError.all
+    @import_errors = current_user.import_errors.paginate(page: params[:page])
+    @import_errors = @import_errors.where(import_id: params[:import_id]) if params[:import_id].present?
   end
 
   # GET /import_errors/1 or /import_errors/1.json
@@ -59,7 +60,7 @@ class ImportErrorsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_import_error
-      @import_error = ImportError.find(params[:id])
+      @import_error = current_user.import_errors.find(params[:id])
     end
 
     # Only allow a list of trusted parameters through.

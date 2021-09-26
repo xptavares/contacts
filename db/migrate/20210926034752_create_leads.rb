@@ -15,6 +15,6 @@ class CreateLeads < ActiveRecord::Migration[6.1]
       t.timestamps
     end
 
-    add_index :leads, [:name, :user_id], unique: true
+    add_index :leads, [:email, :user_id], unique: true
   end
 end

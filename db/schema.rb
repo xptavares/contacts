@@ -100,8 +100,8 @@ ActiveRecord::Schema.define(version: 2021_09_26_062725) do
     t.string "email", default: "", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["email", "user_id"], name: "index_leads_on_email_and_user_id", unique: true
     t.index ["import_id"], name: "index_leads_on_import_id"
-    t.index ["name", "user_id"], name: "index_leads_on_name_and_user_id", unique: true
     t.index ["user_id"], name: "index_leads_on_user_id"
   end
 

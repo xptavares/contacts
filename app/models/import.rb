@@ -13,7 +13,7 @@ class Import < ApplicationRecord
 
   accepts_nested_attributes_for :import_columns, allow_destroy: true
 
-  after_create :call_impoerter_worker
+  after_create_commit :call_impoerter_worker
 
   def has_error?
     import_errors.present?

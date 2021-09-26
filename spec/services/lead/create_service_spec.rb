@@ -8,7 +8,15 @@ RSpec.describe Lead::CreateService do
   let!(:import_column_one) { create(:import_column, import: import, column: column_one, order: 1) }
   let!(:import_column_two) { create(:import_column, import: import, column: column_two, order: 2) }
 
-  let(:call) { Lead::CreateService.call(user;id, import.id, params) }
+  let(:params) { { email: Faker::Internet.email } }
+  let(:call) { Lead::CreateService.call(user.id, import.id, params) }
 
-  it { expect(service).to eq({ one: 1, two: 2 }) }
+
+  it { expect(call()[:status]).to eq(:ok) }
+
+  context "with invalid params" do
+    let!(:lead) { create(:lead, user: user, import: import) }
+    let(:params) { { email: lead.email } }
+    it { expect(call).to eq({ status: :error, key: :email, error: :uniq }) }
+  end
 end

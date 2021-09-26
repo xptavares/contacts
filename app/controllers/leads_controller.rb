@@ -3,7 +3,7 @@ class LeadsController < ApplicationController
 
   # GET /leads or /leads.json
   def index
-    @leads = Lead.all
+    @leads = current_user.leads.paginate(page: params[:page])
   end
 
   # GET /leads/1 or /leads/1.json
@@ -59,7 +59,7 @@ class LeadsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_lead
-      @lead = Lead.find(params[:id])
+      @lead = current_user.leads.find(params[:id])
     end
 
     # Only allow a list of trusted parameters through.

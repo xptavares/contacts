@@ -1,41 +1,41 @@
-<p id="notice"><%= notice %></p>
-
 <h1>Leads</h1>
 
-<table>
+<table class="table">
   <thead>
     <tr>
-      <th>User</th>
-      <th>Name</th>
-      <th>Birth at</th>
-      <th>Phone</th>
-      <th>Address</th>
-      <th>Franchise</th>
-      <th>Encrypted credit card number</th>
-      <th>Email</th>
-      <th colspan="3"></th>
+      <th scope="col">Name</th>
+      <th scope="col">Birth at</th>
+      <th scope="col">Phone</th>
+      <th scope="col">Address</th>
+      <th scope="col">Franchise</th>
+      <th scope="col">Email</th>
+      <th scope="col" colspan="4"></th>
     </tr>
   </thead>
 
   <tbody>
     <% @leads.each do |lead| %>
       <tr>
-        <td><%= lead.user_id %></td>
-        <td><%= lead.name %></td>
+        <td scope="row"><%= lead.name %></td>
         <td><%= lead.birth_at %></td>
         <td><%= lead.phone %></td>
         <td><%= lead.address %></td>
         <td><%= lead.franchise %></td>
-        <td><%= lead.encrypted_credit_card_number %></td>
         <td><%= lead.email %></td>
         <td><%= link_to 'Show', lead %></td>
         <td><%= link_to 'Edit', edit_lead_path(lead) %></td>
         <td><%= link_to 'Destroy', lead, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td>
+          <% if lead.lead_errors.present? %>
+            <%= link_to 'Errors', lead_lead_errors_path(lead) %>
+          <% else %>
+            <span>No Errors</span>
+          <% end %>
+        </td>
       </tr>
     <% end %>
   </tbody>
 </table>
 
-<br>
+<%= will_paginate @leads, renderer: BootstrapPagination::Rails %>
 
-<%= link_to 'New Lead', new_lead_path %>

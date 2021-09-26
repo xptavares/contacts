@@ -8,4 +8,7 @@ class User < ApplicationRecord
 
   has_many :imports
   has_many :leads
+
+  has_many :lead_errors, through: :leads
+  has_many :import_errors, through: :imports
 end

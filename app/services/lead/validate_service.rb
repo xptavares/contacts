@@ -7,13 +7,13 @@ class Lead::ValidateService < ApplicationService
   end
 
   def call
-    return { status: :error, key: :name, error: :uniq } if validate_uniq?
+    return { status: :error, key: :email, error: :uniq } if validate_uniq?
     { status: :ok }
   end
 
   private
   def validate_uniq?
-    current_user.leads.where(name: params[:name]).exists?
+    current_user.leads.where(email: params[:email]).exists?
   end
 
   def current_user

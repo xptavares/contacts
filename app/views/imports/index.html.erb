@@ -1,26 +1,33 @@
-<p id="notice"><%= notice %></p>
-
 <h1>Imports</h1>
 
-<table>
+<table class="table">
   <thead>
     <tr>
-      <th>Status</th>
-      <th colspan="3"></th>
+      <th scope="col">When</th>
+      <th scope="col">Status</th>
+      <th scope="col" colspan="2"></th>
     </tr>
   </thead>
 
   <tbody>
     <% @imports.each do |import| %>
       <tr>
+        <td scope="row"><%= l import.created_at %></td>
         <td><%= import.status %></td>
         <td><%= link_to 'Show', import %></td>
-        <td><%= link_to 'Edit', edit_import_path(import) %></td>
-        <td><%= link_to 'Destroy', import, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td>
+          <% if import.import_errors.present? %>
+            <%= link_to 'Errors', import_import_errors_path(import) %>
+          <% else %>
+            <span>No Errors</span>
+          <% end %>
+        </td>
       </tr>
     <% end %>
   </tbody>
 </table>
+
+<%= will_paginate @import_errors, renderer: BootstrapPagination::Rails %>
 
 <br>
 

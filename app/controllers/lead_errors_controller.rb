@@ -3,7 +3,8 @@ class LeadErrorsController < ApplicationController
 
   # GET /lead_errors or /lead_errors.json
   def index
-    @lead_errors = LeadError.all
+    @lead_errors = current_user.lead_errors.paginate(page: params[:page])
+    @lead_errors = @lead_errors.where(lead_id: params[:lead_id]) if params[:lead_id].present?
   end
 
   # GET /lead_errors/1 or /lead_errors/1.json
@@ -59,7 +60,7 @@ class LeadErrorsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_lead_error
-      @lead_error = LeadError.find(params[:id])
+      @lead_error = current_user.lead_errors.find(params[:id])
     end
 
     # Only allow a list of trusted parameters through.

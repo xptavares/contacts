@@ -3,7 +3,7 @@ class ImportsController < ApplicationController
 
   # GET /imports or /imports.json
   def index
-    @imports = current_user.imports
+    @imports = current_user.imports.paginate(page: params[:page])
   end
 
   # GET /imports/1 or /imports/1.json

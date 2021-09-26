@@ -10,7 +10,7 @@ RSpec.describe "import_errors/edit", type: :view do
     ))
   end
 
-  it "renders the edit import_error form" do
+  xit "renders the edit import_error form" do
     render
 
     assert_select "form[action=?][method=?]", import_error_path(@import_error), "post" do

@@ -10,7 +10,7 @@ RSpec.describe "lead_errors/new", type: :view do
     ))
   end
 
-  it "renders new lead_error form" do
+  xit "renders new lead_error form" do
     render
 
     assert_select "form[action=?][method=?]", lead_errors_path, "post" do
