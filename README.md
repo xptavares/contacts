@@ -1,24 +1,39 @@
-# README
+# Contacts 
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This is an Api for Survivor could survive the zombie apocalypse.
 
-Things you may want to cover:
+### Installation
 
-* Ruby version
+Follow the steps below
 
-* System dependencies
+```sh
+$ Clone the repo
 
-* Configuration
+$ cd contacts
 
-* Database creation
+$ docker-compose build
 
-* Database initialization
+$ docker-compose run app bundle exec rails db:create
 
-* How to run the test suite
+$ docker-compose run app bundle exec rails db:migrate
 
-* Services (job queues, cache servers, search engines, etc.)
+$ docker-compose run app bundle exec rails db:seed
 
-* Deployment instructions
+$ docker-compose up
+```
 
-* ...
+### Running Tests
+
+Use the following commands to run the automated tests.
+
+```sh
+$ docker-compose run app bundle exec rspec
+```
+
+### Enter in Bash
+
+Use the following commands to enter in bash
+
+```sh
+$ docker-compose run app bash
+```

@@ -1,0 +1,54 @@
+version: "3"
+
+services:
+  redis:
+    image: redis
+    volumes:
+      - redis:/data
+    ports:
+      - 6379:6379
+
+  db:
+    image: "postgres:12-alpine"
+    volumes:
+      - "postgres:/var/lib/postgresql/data"
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_HOST_AUTH_METHOD=trust
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+
+  app:
+    depends_on:
+      - "db"
+      - "redis"
+      - "sidekiq"
+    build: .
+    command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
+    ports:
+      - "3000:3000"
+    environment:
+      DATABASE_HOST: db
+      REDIS_URL: redis://redis:6379/0
+    volumes:
+      - .:/project
+  
+  sidekiq:
+    stdin_open: true
+    tty: true
+    build: .
+    depends_on:
+      - db
+      - redis
+    command: bundle exec sidekiq
+    environment:
+      DATABASE_URL: postgresql://postgres:postgres@db:5432
+      PG_HOST: db
+      REDIS_URL: redis://redis:6379/0
+    volumes:
+      - .:/project
+
+volumes:
+  postgres:
+  redis:

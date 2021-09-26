@@ -12,11 +12,14 @@
 
 ActiveRecord::Schema.define(version: 2021_09_26_062725) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
-    t.integer "record_id", null: false
-    t.integer "blob_id", null: false
+    t.bigint "record_id", null: false
+    t.bigint "blob_id", null: false
     t.datetime "created_at", null: false
     t.index ["blob_id"], name: "index_active_storage_attachments_on_blob_id"
     t.index ["record_type", "record_id", "name", "blob_id"], name: "index_active_storage_attachments_uniqueness", unique: true
@@ -35,7 +38,7 @@ ActiveRecord::Schema.define(version: 2021_09_26_062725) do
   end
 
   create_table "active_storage_variant_records", force: :cascade do |t|
-    t.integer "blob_id", null: false
+    t.bigint "blob_id", null: false
     t.string "variation_digest", null: false
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
@@ -49,8 +52,8 @@ ActiveRecord::Schema.define(version: 2021_09_26_062725) do
   end
 
   create_table "import_columns", force: :cascade do |t|
-    t.integer "import_id", null: false
-    t.integer "column_id", null: false
+    t.bigint "import_id", null: false
+    t.bigint "column_id", null: false
     t.integer "order", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -59,7 +62,7 @@ ActiveRecord::Schema.define(version: 2021_09_26_062725) do
   end
 
   create_table "import_errors", force: :cascade do |t|
-    t.integer "import_id", null: false
+    t.bigint "import_id", null: false
     t.string "column"
     t.string "value"
     t.string "description"
@@ -72,13 +75,13 @@ ActiveRecord::Schema.define(version: 2021_09_26_062725) do
     t.integer "status", default: 0, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.integer "user_id"
+    t.bigint "user_id"
     t.index ["status"], name: "index_imports_on_status"
     t.index ["user_id"], name: "index_imports_on_user_id"
   end
 
   create_table "lead_errors", force: :cascade do |t|
-    t.integer "lead_id", null: false
+    t.bigint "lead_id", null: false
     t.string "column"
     t.string "value"
     t.string "description"
@@ -88,8 +91,8 @@ ActiveRecord::Schema.define(version: 2021_09_26_062725) do
   end
 
   create_table "leads", force: :cascade do |t|
-    t.integer "user_id", null: false
-    t.integer "import_id", null: false
+    t.bigint "user_id", null: false
+    t.bigint "import_id", null: false
     t.string "name"
     t.date "birth_at"
     t.string "phone"
