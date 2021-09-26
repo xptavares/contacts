@@ -10,5 +10,5 @@ Rails.application.routes.draw do
   devise_for :users
   get "/columns", to: "column#index"
   mount Sidekiq::Web => "/sidekiq"
-  root to: "root#index"
+  root to: "imports#index"
 end
