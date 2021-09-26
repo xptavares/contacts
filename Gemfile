@@ -63,3 +63,4 @@ end
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'rexml', '~> 3.2', '>= 3.2.5'
 gem 'active_storage_validations', '~> 0.9.5'
+gem 'credit_card_validations', '~> 4.1'

@@ -19,7 +19,6 @@ const fetchColumns = (callback) => {
   }).then(data => {
     callback(data)
   }).catch(err => {
-    console.warn('Something went wrong.', err);
     callback(null)
   });
 }
@@ -89,7 +88,6 @@ const updateColumnsSelect = (columns) => {
   }
   for (let index = 0; index < columns.length; index++) {
     const column = columns[index];
-    console.log(column_ids, `${column.id}`)
     if(!column_ids.includes(`${column.id}`)) {
       let newOption = document.createElement("option");
       newOption.text = column.name;
@@ -100,9 +98,10 @@ const updateColumnsSelect = (columns) => {
 }
 
 document.addEventListener("turbolinks:load", function() {
+  const btnAddNewColumn = document.getElementById("button-add-new-column");
+  const listOfColumns = document.getElementById("list-of-columns");
+  if(!listOfColumns) return
   fetchColumns(columns => {
-    const btnAddNewColumn = document.getElementById("button-add-new-column");
-    const listOfColumns = document.getElementById("list-of-columns");
     btnAddNewColumn.addEventListener("click", () => {
       let selectedColumn = document.getElementById("selected-column");
       if(!selectedColumn.value) return

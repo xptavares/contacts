@@ -3,7 +3,7 @@ class ImportsController < ApplicationController
 
   # GET /imports or /imports.json
   def index
-    @imports = Import.all
+    @imports = current_user.imports
   end
 
   # GET /imports/1 or /imports/1.json
@@ -13,9 +13,6 @@ class ImportsController < ApplicationController
   # GET /imports/new
   def new
     @import = Import.new
-    Column.all.each_with_index do |column, index|
-      @import.import_columns.build(column: column, order: index + 1)
-    end
   end
 
   # GET /imports/1/edit
@@ -24,7 +21,7 @@ class ImportsController < ApplicationController
 
   # POST /imports or /imports.json
   def create
-    @import = Import.new(import_params)
+    @import = Import.new(import_params.merge(user_id: current_user.id))
 
     respond_to do |format|
       if @import.save
@@ -62,7 +59,7 @@ class ImportsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_import
-      @import = Import.find(params[:id])
+      @import = current_user.imports.find(params[:id])
     end
 
     # Only allow a list of trusted parameters through.
