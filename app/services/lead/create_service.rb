@@ -10,10 +10,19 @@ class Lead::CreateService < ApplicationService
   end
 
   def call
-    Lead.create(prepare_params)
+    if valid[:status] == :ok
+      { status: :ok, body: Lead.create(prepare_params) }
+    else
+      valid
+    end
   end
 
   private
+
+  def valid
+    @valid ||= Lead::ValidateService.call(current_user_id, params)
+  end
+
   def prepare_params
     {
       user_id: current_user_id,

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_09_26_052424) do
+ActiveRecord::Schema.define(version: 2021_09_26_062725) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -56,6 +56,16 @@ ActiveRecord::Schema.define(version: 2021_09_26_052424) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["column_id"], name: "index_import_columns_on_column_id"
     t.index ["import_id"], name: "index_import_columns_on_import_id"
+  end
+
+  create_table "import_errors", force: :cascade do |t|
+    t.integer "import_id", null: false
+    t.string "column"
+    t.string "value"
+    t.string "description"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["import_id"], name: "index_import_errors_on_import_id"
   end
 
   create_table "imports", force: :cascade do |t|
@@ -113,6 +123,7 @@ ActiveRecord::Schema.define(version: 2021_09_26_052424) do
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "import_columns", "columns"
   add_foreign_key "import_columns", "imports"
+  add_foreign_key "import_errors", "imports"
   add_foreign_key "imports", "users"
   add_foreign_key "lead_errors", "leads"
   add_foreign_key "leads", "imports"

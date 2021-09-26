@@ -1,0 +1,33 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Import Errors</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Import</th>
+      <th>Column</th>
+      <th>Value</th>
+      <th>Description</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @import_errors.each do |import_error| %>
+      <tr>
+        <td><%= import_error.import_id %></td>
+        <td><%= import_error.column %></td>
+        <td><%= import_error.value %></td>
+        <td><%= import_error.description %></td>
+        <td><%= link_to 'Show', import_error %></td>
+        <td><%= link_to 'Edit', edit_import_error_path(import_error) %></td>
+        <td><%= link_to 'Destroy', import_error, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Import Error', new_import_error_path %>

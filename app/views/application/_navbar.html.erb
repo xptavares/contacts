@@ -25,8 +25,17 @@
               <%= "Imports" %>
             <% end %>
           </li>
+          <li class="nav-item">
+            <%= link_to import_errors_path, class: controller?('import_errors') do %>
+              <%= "Import Errors" %>
+            <% end %>
+          </li>
+          <li class="nav-item">
+            <%= link_to lead_errors_path, class: controller?('lead_errors') do %>
+              <%= "Lead Errors" %>
+            <% end %>
+          </li>
         </ul>
-
 
         <span class="d-flex">
           <div class="btn-group btn-group-sm" role="group" aria-label="Basic mixed styles example">

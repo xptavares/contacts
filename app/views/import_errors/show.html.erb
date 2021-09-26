@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Import:</strong>
+  <%= @import_error.import_id %>
+</p>
+
+<p>
+  <strong>Column:</strong>
+  <%= @import_error.column %>
+</p>
+
+<p>
+  <strong>Value:</strong>
+  <%= @import_error.value %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @import_error.description %>
+</p>
+
+<%= link_to 'Edit', edit_import_error_path(@import_error) %> |
+<%= link_to 'Back', import_errors_path %>

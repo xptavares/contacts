@@ -1,25 +1,33 @@
 class Import::FromFileService < Import::BaseService
   def call
     import.processing!
-    begin
+    ActiveRecord::Base.transaction do
       ::CSV.parse(import.file.download, headers: false) do |row|
-        ActiveRecord::Base.transaction do
-          hash = mapped_values(row)
-          contact_validates = Contact::ValidateService.call(hash)
-          lead = Lead::CreateService.call(current_user.id, import.id, hash)
+        hash = mapped_values(row)
+        contact_validates = Contact::ValidateService.call(hash)
+        lead_call = Lead::CreateService.call(current_user.id, import.id, hash)
+        if lead_call[:status] == :ok
           contact_validates.each do |contact_validate|
             next if contact_validate[:status] == :ok
-            LeadError.create(lead: lead,
-                            column: contact_validate[:key],
-                            value: hash[contact_validate[:key]],
-                            description: contact_validate[:error])
+            LeadError.create(lead: lead_call[:body],
+                              column: contact_validate[:key],
+                              value: hash[contact_validate[:key]],
+                              description: contact_validate[:error])
           end
+        else
+          ImportError.create(import: import,
+                              column: lead_call[:key],
+                              value: hash[lead_call[:key]],
+                              description: lead_call[:error])
         end
       end
-    rescue StandardError => e
-      import.failed!
     end
-    import.finished!
+
+    if import.reload.has_error?
+      import.failed!
+    else
+      import.finished!
+    end
   end
 
   private
