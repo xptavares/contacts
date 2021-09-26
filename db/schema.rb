@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_09_26_023350) do
+ActiveRecord::Schema.define(version: 2021_09_26_052424) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -67,6 +67,34 @@ ActiveRecord::Schema.define(version: 2021_09_26_023350) do
     t.index ["user_id"], name: "index_imports_on_user_id"
   end
 
+  create_table "lead_errors", force: :cascade do |t|
+    t.integer "lead_id", null: false
+    t.string "column"
+    t.string "value"
+    t.string "description"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["lead_id"], name: "index_lead_errors_on_lead_id"
+  end
+
+  create_table "leads", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "import_id", null: false
+    t.string "name"
+    t.date "birth_at"
+    t.string "phone"
+    t.string "address"
+    t.string "franchise"
+    t.string "credit_card_last_numbers"
+    t.string "encrypted_credit_card_number"
+    t.string "email", default: "", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["import_id"], name: "index_leads_on_import_id"
+    t.index ["name", "user_id"], name: "index_leads_on_name_and_user_id", unique: true
+    t.index ["user_id"], name: "index_leads_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "username", default: "", null: false
@@ -86,4 +114,7 @@ ActiveRecord::Schema.define(version: 2021_09_26_023350) do
   add_foreign_key "import_columns", "columns"
   add_foreign_key "import_columns", "imports"
   add_foreign_key "imports", "users"
+  add_foreign_key "lead_errors", "leads"
+  add_foreign_key "leads", "imports"
+  add_foreign_key "leads", "users"
 end

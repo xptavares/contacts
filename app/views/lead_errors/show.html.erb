@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Lead:</strong>
+  <%= @lead_error.lead_id %>
+</p>
+
+<p>
+  <strong>Column:</strong>
+  <%= @lead_error.column %>
+</p>
+
+<p>
+  <strong>Value:</strong>
+  <%= @lead_error.value %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @lead_error.description %>
+</p>
+
+<%= link_to 'Edit', edit_lead_error_path(@lead_error) %> |
+<%= link_to 'Back', lead_errors_path %>

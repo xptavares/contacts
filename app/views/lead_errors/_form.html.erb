@@ -1,0 +1,37 @@
+<%= form_with(model: lead_error) do |form| %>
+  <% if lead_error.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(lead_error.errors.count, "error") %> prohibited this lead_error from being saved:</h2>
+
+      <ul>
+        <% lead_error.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :lead_id %>
+    <%= form.text_field :lead_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :column %>
+    <%= form.text_field :column %>
+  </div>
+
+  <div class="field">
+    <%= form.label :value %>
+    <%= form.text_field :value %>
+  </div>
+
+  <div class="field">
+    <%= form.label :description %>
+    <%= form.text_field :description %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

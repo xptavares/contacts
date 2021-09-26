@@ -1,0 +1,33 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Lead Errors</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Lead</th>
+      <th>Column</th>
+      <th>Value</th>
+      <th>Description</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @lead_errors.each do |lead_error| %>
+      <tr>
+        <td><%= lead_error.lead_id %></td>
+        <td><%= lead_error.column %></td>
+        <td><%= lead_error.value %></td>
+        <td><%= lead_error.description %></td>
+        <td><%= link_to 'Show', lead_error %></td>
+        <td><%= link_to 'Edit', edit_lead_error_path(lead_error) %></td>
+        <td><%= link_to 'Destroy', lead_error, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Lead Error', new_lead_error_path %>
