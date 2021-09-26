@@ -67,3 +67,4 @@ gem 'credit_card_validations', '~> 4.1'
 gem 'sidekiq', '~> 6.2', '>= 6.2.2'
 gem 'will_paginate', '~> 3.3', '>= 3.3.1'
 gem 'will_paginate-bootstrap', '~> 1.0', '>= 1.0.2'
+gem "aws-sdk-s3", require: false
