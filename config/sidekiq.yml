@@ -1,0 +1,6 @@
+:concurrency: 10
+max_retries: 5
+:queues:
+  - websocket
+  - default
+  - mailers
